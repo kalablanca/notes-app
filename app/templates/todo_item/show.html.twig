@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.todo_item_details'|trans({'%id%': todo_item.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ todo_item.title }}</h1>
+    {% if todo_item is defined and todo_item|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label.created_at'|trans }}</dt>
+            <dd>{{ todo_item.createdAt|format_date('short') }}</dd>
+            <dt>{{ 'label.updated_at'|trans }}</dt>
+            <dd>{{ todo_item.updatedAt|format_date('short') }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('todo_show', {id: todo_item.todo.id}) }}" title="{{ 'action.back_to_list'|trans }}">
+                {{ 'action.back_to_list'|trans }}
+            </a>
+        </p>
+
+    {% else %}
+        <p>
+            {{ 'message.record_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
