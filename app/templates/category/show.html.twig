@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.category_details'|trans({'%id%': category.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ category.title }}</h1>
+    {% if category is defined and category|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label.created_at'|trans }}</dt>
+            <dd>{{ category.createdAt|format_date('short') }}</dd>
+            <dt>{{ 'label.updated_at'|trans }}</dt>
+            <dd>{{ category.updatedAt|format_date('short') }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}">
+                {{ 'action.back_to_list'|trans }}
+            </a>
+        </p>
+        {% if pagination is defined and pagination.items|length %}
+
+            <h3>{{ 'title.note_list'|trans }}</h3>
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'note.createdAt') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'note.updatedAt') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'note.title') }}</th>
+                    <th>{{ 'label.actions'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for note in pagination.items %}
+                    <tr>
+                        <td>{{ note.createdAt|format_date('long') }}</td>
+                        <td>{{ note.updatedAt|format_date('long') }}</td>
+                        <td>{{ note.title }}</td>
+                        <td>
+                            <a href="{{ url('note_show', {id: note.id}) }}" title="{{ 'action.view'|trans }}">
+                                {{ 'action.view'|trans }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+        {% else %}
+            {% include 'default/_single_alert_message.html.twig' with {
+                type: 'warning',
+                message: 'message.empty_list'|trans
+            } %}
+        {% endif %}
+
+    {% else %}
+        <p>
+            {{ 'message.record_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.todo_details'|trans({'%id%': todo.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ todo.title }}</h1>
+    {% if todo is defined and todo|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label.created_at'|trans }}</dt>
+            <dd>{{ todo.createdAt|format_date('short') }}</dd>
+            <dt>{{ 'label.updated_at'|trans }}</dt>
+            <dd>{{ todo.updatedAt|format_date('short') }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('todo_index') }}" title="{{ 'action.back_to_list'|trans }}">
+                {{ 'action.back_to_list'|trans }}
+            </a>
+        </p>
+
+        {% if pagination is defined and pagination.items|length %}
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'todo.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'todo.createdAt') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'todo.updatedAt') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'todo.title') }}</th>
+                    <th>{{ 'label.actions'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for todo_item in pagination.items %}
+                    <tr>
+                        <td>{{ todo_item.id }}</td>
+                        <td>{{ todo_item.createdAt|format_date('long') }}</td>
+                        <td>{{ todo_item.updatedAt|format_date('long') }}</td>
+                        <td>{{ todo_item.title }}</td>
+                        <td>
+                            <a href="{{ url('todo_item_show', {id: todo_item.id}) }}" title="{{ 'action.view'|trans }}">
+                                {{ 'action.view'|trans }}
+                            </a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ url('todo_item_edit', {id: todo_item.id}) }}" title="{{ 'action.edit'|trans }}">
+                                    {{ 'action.edit'|trans }}
+                                </a>
+                                <a href="{{ url('todo_item_delete', {id: todo_item.id}) }}" title="{{ 'action.delete'|trans }}">
+                                    {{ 'action.delete'|trans }}
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+        {% else %}
+            {% include 'default/_single_alert_message.html.twig' with {
+                type: 'warning',
+                message: 'message.empty_list'|trans
+            } %}
+        {% endif %}
+    {% else %}
+        <p>
+            {{ 'message.record_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
