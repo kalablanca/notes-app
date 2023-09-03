@@ -49,13 +49,13 @@ chown -R dev.dev *
 * Project URL
 
 ```bash
-http://localhost:8100
+http://localhost:8000
 ```
 
 or 
 
 ```bash
-http://symfony.local:8100
+http://symfony.local:8000
 ```
 
 * MySQL
@@ -64,7 +64,7 @@ http://symfony.local:8100
     * outside container: host is `localhost`, port: `3310`
     * passwords, db name are in `docker-compose.yml`
     
-* djfarrelly/maildev i available from the browser on port `8101`
+* djfarrelly/maildev i available from the browser on port `8001`
 
 * xdebug i available remotely on port `9000`
 

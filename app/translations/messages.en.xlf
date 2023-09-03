@@ -1,0 +1,287 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="message.created_successfully">
+                <source>message.created_successfully</source>
+                <target>Successfully Created</target>
+            </trans-unit>
+            <trans-unit id="message.category_contains_notes">
+                <source>message.category_contains_notes</source>
+                <target>Category contains notes</target>
+            </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Successfully Deleted</target>
+            </trans-unit>
+            <trans-unit id="message.updated_successfully">
+                <source>message.updated_successfully</source>
+                <target>Successfully Updated</target>
+            </trans-unit>
+            <trans-unit id="message.registered_successfully">
+                <source>message.registered_successfully</source>
+                <target>Successfully Registered</target>
+            </trans-unit>
+            <trans-unit id="message.todo_contains_items">
+                <source>message.todo_contains_items</source>
+                <target>Todo List contains items</target>
+            </trans-unit>
+            <trans-unit id="title.category_details">
+                <source>title.category_details</source>
+                <target>Category Details</target>
+            </trans-unit>
+            <trans-unit id="title.category_delete">
+                <source>title.category_delete</source>
+                <target>Delete Category</target>
+            </trans-unit>
+            <trans-unit id="title.category_edit">
+                <source>title.category_edit</source>
+                <target>Edit Category</target>
+            </trans-unit>
+            <trans-unit id="title.category_create">
+                <source>title.category_create</source>
+                <target>Create Category</target>
+            </trans-unit>
+            <trans-unit id="title.todo_item_details">
+                <source>title.todo_item_details</source>
+                <target>Todo Item Details</target>
+            </trans-unit>
+            <trans-unit id="label.created_at">
+                <source>label.created_at</source>
+                <target>Created At</target>
+            </trans-unit>
+            <trans-unit id="title.note_edit">
+                <source>title.note_edit</source>
+                <target>Edit Note</target>
+            </trans-unit>
+            <trans-unit id="title.note_create">
+                <source>title.note_create</source>
+                <target>Create Note</target>
+            </trans-unit>
+            <trans-unit id="label.updated_at">
+                <source>label.updated_at</source>
+                <target>Updated At</target>
+            </trans-unit>
+            <trans-unit id="label.is_done">
+                <source>label.is_done</source>
+                <target>Is Done?</target>
+            </trans-unit>
+            <trans-unit id="label.yes">
+                <source>label.yes</source>
+                <target>Yes</target>
+            </trans-unit>
+            <trans-unit id="label.no">
+                <source>label.no</source>
+                <target>No</target>
+            </trans-unit>
+            <trans-unit id="action.back_to_list">
+                <source>action.back_to_list</source>
+                <target>Back to List</target>
+            </trans-unit>
+            <trans-unit id="title.todo_create">
+                <source>title.todo_create</source>
+                <target>Create Todo</target>
+            </trans-unit>
+            <trans-unit id="label.category">
+                <source>label.category</source>
+                <target>Category</target>
+            </trans-unit>
+            <trans-unit id="title.todo_item_delete">
+                <source>title.todo_item_delete</source>
+                <target>Delete Todo Item</target>
+            </trans-unit>
+            <trans-unit id="title.todo_item_edit">
+                <source>title.todo_item_edit</source>
+                <target>Edit Todo Item</target>
+            </trans-unit>
+            <trans-unit id="title.todo_item_create">
+                <source>title.todo_item_create</source>
+                <target>Create Todo Item</target>
+            </trans-unit>
+            <trans-unit id="title.note_details">
+                <source>title.note_details</source>
+                <target>Note Details</target>
+            </trans-unit>
+            <trans-unit id="label.content">
+                <source>label.content</source>
+                <target>Content</target>
+            </trans-unit>
+            <trans-unit id="title.note_delete">
+                <source>title.note_delete</source>
+                <target>Delete Note</target>
+            </trans-unit>
+            <trans-unit id="title.todo_details">
+                <source>title.todo_details</source>
+                <target>Todo Details</target>
+            </trans-unit>
+            <trans-unit id="label.title">
+                <source>label.title</source>
+                <target>Title</target>
+            </trans-unit>
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Save</target>
+            </trans-unit>
+            <trans-unit id="title.user_create">
+                <source>title.user_create</source>
+                <target>Create User</target>
+            </trans-unit>
+            <trans-unit id="title.user_role_edit">
+                <source>title.user_role_edit</source>
+                <target>User Role Edit</target>
+            </trans-unit>
+            <trans-unit id="title.user_edit">
+                <source>title.user_edit</source>
+                <target>Edit User</target>
+            </trans-unit>
+            <trans-unit id="title.user_delete">
+                <source>title.user_delete</source>
+                <target>Delete User</target>
+            </trans-unit>
+            <trans-unit id="action.edit_password">
+                <source>action.edit_password</source>
+                <target>Edit Password</target>
+            </trans-unit>
+            <trans-unit id="label.lastName">
+                <source>label.lastName</source>
+                <target>Last Name</target>
+            </trans-unit>
+            <trans-unit id="label.firstName">
+                <source>label.firstName</source>
+                <target>First Name</target>
+            </trans-unit>
+            <trans-unit id="title.user_details">
+                <source>title.user_details</source>
+                <target>User Details</target>
+            </trans-unit>
+            <trans-unit id="title.user_password_edit">
+                <source>title.user_password_edit</source>
+                <target>Edit User Password</target>
+            </trans-unit>
+            <trans-unit id="message.empty_list">
+                <source>message.empty_list</source>
+                <target>No items in the list.</target>
+            </trans-unit>
+            <trans-unit id="action.view">
+                <source>action.view</source>
+                <target>View</target>
+            </trans-unit>
+            <trans-unit id="title.user">
+                <source>title.user</source>
+                <target>User</target>
+            </trans-unit>
+            <trans-unit id="title.admin">
+                <source>title.admin</source>
+                <target>Admin</target>
+            </trans-unit>
+            <trans-unit id="label.actions">
+                <source>label.actions</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="label.roles">
+                <source>label.roles</source>
+                <target>Roles</target>
+            </trans-unit>
+            <trans-unit id="label.email">
+                <source>label.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="label.id">
+                <source>label.id</source>
+                <target>ID</target>
+            </trans-unit>
+            <trans-unit id="title.user_list">
+                <source>title.user_list</source>
+                <target>User List</target>
+            </trans-unit>
+            <trans-unit id="title.register">
+                <source>title.register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="action.sign_in">
+                <source>action.sign_in</source>
+                <target>Sign In</target>
+            </trans-unit>
+            <trans-unit id="message.password">
+                <source>message.password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="title.email">
+                <source>title.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="message.please_sign_in">
+                <source>message.please_sign_in</source>
+                <target>Please Sign In</target>
+            </trans-unit>
+            <trans-unit id="message.logged_in_as">
+                <source>message.logged_in_as</source>
+                <target>Logged in as</target>
+            </trans-unit>
+            <trans-unit id="message.log_in">
+                <source>message.log_in</source>
+                <target>Log In</target>
+            </trans-unit>
+            <trans-unit id="title.homepage">
+                <source>title.homepage</source>
+                <target>Homepage</target>
+            </trans-unit>
+            <trans-unit id="action.register">
+                <source>action.register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Login</target>
+            </trans-unit>
+            <trans-unit id="message.record_not_found">
+                <source>message.record_not_found</source>
+                <target>Record Not Found</target>
+            </trans-unit>
+            <trans-unit id="title.todo_delete">
+                <source>title.todo_delete</source>
+                <target>Delete Todo</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="title.todo_edit">
+                <source>title.todo_edit</source>
+                <target>Edit Todo</target>
+            </trans-unit>
+            <trans-unit id="action.edit">
+                <source>action.edit</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="action.create">
+                <source>action.create</source>
+                <target>Create</target>
+            </trans-unit>
+            <trans-unit id="message.form_error">
+                <source>message.form_error</source>
+                <target>Form Error</target>
+            </trans-unit>
+            <trans-unit id="title.category_list">
+                <source>title.category_list</source>
+                <target>Category List</target>
+            </trans-unit>
+            <trans-unit id="title.note_list">
+                <source>title.note_list</source>
+                <target>Note List</target>
+            </trans-unit>
+            <trans-unit id="title.todo_list">
+                <source>title.todo_list</source>
+                <target>Todo List</target>
+            </trans-unit>
+            <trans-unit id="title.user_profile">
+                <source>title.user_profile</source>
+                <target>User Profile</target>
+            </trans-unit>
+            <trans-unit id="action.logout">
+                <source>action.logout</source>
+                <target>Logout</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,27 +1,27 @@
 <nav class="my-2">
     <ul class="nav justify-content-start">
-        <li class="nav-item">
-            {% if is_granted('ROLE_ADMIN') %}
-            <a class="nav-link" href="{{ path('category_index') }}">
-                {{ 'title.category_list'|trans }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('note_index') }}">
-                {{ 'title.note_list'|trans }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('todo_index') }}">
-                {{ 'title.todo_list'|trans }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}"
-               title="{{ 'title.user_profile'|trans }}">
-                {{ 'title.user_profile'|trans }}
-            </a>
-        </li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('note_index') }}">
+                    {{ 'title.note_list'|trans }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('todo_index') }}">
+                    {{ 'title.todo_list'|trans }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}"
+                   title="{{ 'title.user_profile'|trans }}">
+                    {{ 'title.user_profile'|trans }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('category_index') }}">
+                    {{ 'title.category_list'|trans }}
+                </a>
+            </li>
         {% endif %}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <li class="nav-item">
