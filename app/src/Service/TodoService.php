@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Repository\TodoItemRepository;
 use App\Repository\TodoRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -36,9 +37,9 @@ class TodoService implements TodoServiceInterface
     /**
      * TodoService constructor.
      *
-     * @param TodoRepository $todoRepository Todo repository
+     * @param TodoRepository     $todoRepository     Todo repository
+     * @param PaginatorInterface $paginator          Paginator
      * @param TodoItemRepository $todoItemRepository TodoItem repository
-     * @param PaginatorInterface $paginator Paginator
      */
     public function __construct(TodoRepository $todoRepository, PaginatorInterface $paginator, TodoItemRepository $todoItemRepository)
     {
@@ -50,7 +51,8 @@ class TodoService implements TodoServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int $page Page number
+     * @param int  $page Page number
+     * @param User $user User entity
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
@@ -86,8 +88,6 @@ class TodoService implements TodoServiceInterface
     /**
      * Find todo items by todo.
      *
-     * @param int $page
-     * @param Todo $todo
      * @return mixed
      */
     public function getTodoItemsByTodoPaginatedList(int $page, Todo $todo): PaginationInterface
@@ -104,7 +104,7 @@ class TodoService implements TodoServiceInterface
      *
      * @param Todo $todo Todo entity
      *
-     * @throws
+     * @throws NonUniqueResultException|NoResultException
      */
     public function canBeDeleted(Todo $todo): bool
     {
@@ -118,8 +118,9 @@ class TodoService implements TodoServiceInterface
      *
      * @param int $todoId Todo id
      *
+     * @return Todo|null Todo entity
      */
-    public function findOneById(int $todoId)
+    public function findOneById(int $todoId): ?Todo
     {
         return $this->todoRepository->findOneBy(['id' => $todoId]);
     }

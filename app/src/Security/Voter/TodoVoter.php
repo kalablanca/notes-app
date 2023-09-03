@@ -39,8 +39,6 @@ class TodoVoter extends Voter
 
     /**
      * Security helper.
-     *
-     * @var Security
      */
     private Security $security;
 
@@ -91,7 +89,6 @@ class TodoVoter extends Voter
             self::DELETE => $this->canDelete($subject, $user),
             default => false,
         };
-
     }
 
     /**

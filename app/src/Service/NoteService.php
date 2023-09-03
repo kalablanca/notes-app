@@ -29,8 +29,8 @@ class NoteService implements NoteServiceInterface
     /**
      * CategoryService constructor.
      *
-     * @param NoteRepository     $noteRepository    Note repository
-     * @param PaginatorInterface $paginator         Paginator
+     * @param NoteRepository     $noteRepository Note repository
+     * @param PaginatorInterface $paginator      Paginator
      */
     public function __construct(NoteRepository $noteRepository, PaginatorInterface $paginator)
     {
@@ -41,7 +41,8 @@ class NoteService implements NoteServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int $page Page number
+     * @param int  $page Page number
+     * @param User $user User entity
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */

@@ -7,7 +7,6 @@ namespace App\DataFixtures;
 
 use App\Entity\todo;
 use App\Entity\User;
-use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
@@ -33,12 +32,12 @@ class TodoFixtures extends AbstractBaseFixtures implements DependentFixtureInter
             $todo->setTitle($this->faker->word);
             $todo->setSlug($this->faker->word);
             $todo->setCreatedAt(
-                DateTimeImmutable::createFromMutable(
+                \DateTimeImmutable::createFromMutable(
                     $this->faker->dateTimeBetween('-100 days', '-1 days')
                 )
             );
             $todo->setUpdatedAt(
-                DateTimeImmutable::createFromMutable(
+                \DateTimeImmutable::createFromMutable(
                     $this->faker->dateTimeBetween('-100 days', '-1 days')
                 )
             );

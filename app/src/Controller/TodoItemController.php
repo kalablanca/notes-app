@@ -42,8 +42,8 @@ class TodoItemController extends AbstractController
      * TodoItemController constructor.
      *
      * @param TodoItemServiceInterface $todoItemService TodoItem service
-     * @param TodoServiceInterface $todoService Todo service
-     * @param TranslatorInterface $translator Translator
+     * @param TodoServiceInterface     $todoService     Todo service
+     * @param TranslatorInterface      $translator      Translator
      */
     public function __construct(TodoItemServiceInterface $todoItemService, TodoServiceInterface $todoService, TranslatorInterface $translator)
     {
@@ -122,7 +122,7 @@ class TodoItemController extends AbstractController
     /**
      * Edit action.
      *
-     * @param Request $request HTTP request
+     * @param Request  $request  HTTP request
      * @param TodoItem $todoItem TodoItem entity
      *
      * @return Response HTTP response
@@ -168,7 +168,7 @@ class TodoItemController extends AbstractController
     /**
      * Delete action.
      *
-     * @param Request $request HTTP request
+     * @param Request  $request  HTTP request
      * @param TodoItem $todoItem TodoItem entity
      *
      * @return Response HTTP response

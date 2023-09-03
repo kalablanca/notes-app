@@ -26,6 +26,6 @@ class HomepageController extends AbstractController
     )]
     public function index(): Response
     {
-       return $this->redirectToRoute('note_index');
+        return $this->redirectToRoute('note_index');
     }
 }

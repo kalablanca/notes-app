@@ -39,8 +39,6 @@ class TodoItemVoter extends Voter
 
     /**
      * Security helper.
-     *
-     * @var Security
      */
     private Security $security;
 
@@ -91,14 +89,13 @@ class TodoItemVoter extends Voter
             self::DELETE => $this->canDelete($subject, $user),
             default => false,
         };
-
     }
 
     /**
      * Checks if user can edit todo item.
      *
      * @param TodoItem $todoItem TodoItem entity
-     * @param User $user User
+     * @param User     $user     User
      *
      * @return bool Result
      */
@@ -111,7 +108,7 @@ class TodoItemVoter extends Voter
      * Checks if user can view todo item.
      *
      * @param TodoItem $todoItem TodoItem entity
-     * @param User $user User
+     * @param User     $user     User
      *
      * @return bool Result
      */
@@ -124,7 +121,7 @@ class TodoItemVoter extends Voter
      * Checks if user can delete todo.
      *
      * @param TodoItem $todoItem TodoItem entity
-     * @param User $user User
+     * @param User     $user     User
      *
      * @return bool Result
      */

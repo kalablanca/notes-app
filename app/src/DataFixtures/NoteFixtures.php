@@ -55,7 +55,6 @@ class NoteFixtures extends AbstractBaseFixtures implements DependentFixtureInter
             $user = $this->getRandomReference('admins');
             $note->setUser($user);
 
-
             return $note;
         });
         $this->manager->flush();

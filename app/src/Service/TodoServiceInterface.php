@@ -17,7 +17,7 @@ interface TodoServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int $page Page number
+     * @param int  $page Page number
      * @param User $user User entity
      *
      * @return PaginationInterface<string, mixed> Paginated list
@@ -41,8 +41,6 @@ interface TodoServiceInterface
     /**
      * Find todo items by todo.
      *
-     * @param int $page
-     * @param Todo $todo
      * @return mixed
      */
     public function getTodoItemsByTodoPaginatedList(int $page, Todo $todo): PaginationInterface;
@@ -61,5 +59,5 @@ interface TodoServiceInterface
      *
      * @return Todo|null Todo entity
      */
-    public function findOneById(int  $todoId);
+    public function findOneById(int $todoId): ?Todo;
 }

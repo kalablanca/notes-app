@@ -5,12 +5,9 @@
 
 namespace App\Repository;
 
-use App\Entity\Category;
 use App\Entity\Todo;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -145,5 +142,4 @@ class TodoRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('todo');
     }
-
 }

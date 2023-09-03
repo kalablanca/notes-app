@@ -104,11 +104,11 @@ class TodoItemRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param TodoItem $TodoItem TodoItem entity
+     * @param TodoItem $todoItem TodoItem entity
      */
-    public function delete(TodoItem $TodoItem): void
+    public function delete(TodoItem $todoItem): void
     {
-        $this->_em->remove($TodoItem);
+        $this->_em->remove($todoItem);
         $this->_em->flush();
     }
 
@@ -117,9 +117,7 @@ class TodoItemRepository extends ServiceEntityRepository
      *
      * @param Todo $todo Todo entity
      *
-     * @return int
      * @throws NoResultException
-     *
      * @throws NonUniqueResultException
      */
     public function countByTodo(Todo $todo): int

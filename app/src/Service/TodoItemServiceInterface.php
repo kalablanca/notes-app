@@ -5,9 +5,7 @@
 
 namespace App\Service;
 
-use App\Entity\Todo;
 use App\Entity\TodoItem;
-use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
@@ -35,18 +33,11 @@ interface TodoItemServiceInterface
      * Delete entity.
      *
      * @param TodoItem $todoItem TodoItem entity
-     *
-     * @return void
      */
     public function delete(TodoItem $todoItem): void;
 
     /**
      * Create entity.
-     *
-     * @param TodoItem $todoItem
-     * @param int $todoId
-     *
-     * @return void
      */
     public function create(TodoItem $todoItem, int $todoId): void;
 }

@@ -42,7 +42,8 @@ class TodoItemType extends AbstractType
                     'constraints' => [
                         new NotBlank(),
                     ],
-                ])
+                ]
+            )
             ->add(
                 'isDone',
                 CheckboxType::class,

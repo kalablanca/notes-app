@@ -9,7 +9,6 @@ use App\Entity\Todo;
 use App\Entity\TodoItem;
 use App\Repository\TodoItemRepository;
 use App\Repository\TodoRepository;
-use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -37,8 +36,8 @@ class TodoItemService implements TodoItemServiceInterface
      * TodoItemService constructor.
      *
      * @param TodoItemRepository $todoItemRepository TodoItem repository
-     * @param TodoRepository $todoRepository Todo repository
-     * @param PaginatorInterface $paginator Paginator
+     * @param TodoRepository     $todoRepository     Todo repository
+     * @param PaginatorInterface $paginator          Paginator
      */
     public function __construct(TodoItemRepository $todoItemRepository, TodoRepository $todoRepository, PaginatorInterface $paginator)
     {
@@ -85,11 +84,6 @@ class TodoItemService implements TodoItemServiceInterface
 
     /**
      * Create entity.
-     *
-     * @param TodoItem $todoItem
-     * @param int $todoId
-     *
-     * @return void
      */
     public function create(TodoItem $todoItem, int $todoId): void
     {
