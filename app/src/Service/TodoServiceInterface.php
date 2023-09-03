@@ -53,4 +53,13 @@ interface TodoServiceInterface
      * @param Todo $todo Todo entity
      */
     public function canBeDeleted(Todo $todo): bool;
+
+    /**
+     * Find one by id.
+     *
+     * @param int $todoId Todo id
+     *
+     * @return Todo|null Todo entity
+     */
+    public function findOneById(int  $todoId);
 }

@@ -93,11 +93,11 @@ class TodoItemRepository extends ServiceEntityRepository
     /**
      * Save record.
      *
-     * @param TodoItem $TodoItem TodoItem entity
+     * @param TodoItem $todoItem TodoItem entity
      */
-    public function save(TodoItem $TodoItem): void
+    public function save(TodoItem $todoItem): void
     {
-        $this->_em->persist($TodoItem);
+        $this->_em->persist($todoItem);
         $this->_em->flush();
     }
 
@@ -144,6 +144,4 @@ class TodoItemRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('todoItem');
     }
-
-
 }

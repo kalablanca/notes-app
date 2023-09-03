@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\TodoItem;
 use App\Form\Type\TodoItemType;
 use App\Service\TodoItemServiceInterface;
+use App\Service\TodoServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -28,6 +29,11 @@ class TodoItemController extends AbstractController
     private TodoItemServiceInterface $todoItemService;
 
     /**
+     * Todo service.
+     */
+    private TodoServiceInterface $todoService;
+
+    /**
      * Translator.
      */
     private TranslatorInterface $translator;
@@ -36,11 +42,13 @@ class TodoItemController extends AbstractController
      * TodoItemController constructor.
      *
      * @param TodoItemServiceInterface $todoItemService TodoItem service
+     * @param TodoServiceInterface $todoService Todo service
      * @param TranslatorInterface $translator Translator
      */
-    public function __construct(TodoItemServiceInterface $todoItemService, TranslatorInterface $translator)
+    public function __construct(TodoItemServiceInterface $todoItemService, TodoServiceInterface $todoService, TranslatorInterface $translator)
     {
         $this->todoItemService = $todoItemService;
+        $this->todoService = $todoService;
         $this->translator = $translator;
     }
 
@@ -87,15 +95,12 @@ class TodoItemController extends AbstractController
         $form = $this->createForm(
             TodoItemType::class,
             $todoItem,
-            [
-                'method' => 'POST',
-                'action' => $this->generateUrl('todo_item_create'),
-            ]
         );
         $form->handleRequest($request);
+        $todoId = $request->query->getInt('id');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->todoItemService->save($todoItem);
+            $this->todoItemService->create($todoItem, $todoId);
 
             $this->addFlash(
                 'success',
@@ -197,7 +202,10 @@ class TodoItemController extends AbstractController
                 $this->translator->trans('message.deleted_successfully')
             );
 
-            return $this->redirectToRoute('todo_item_index');
+            return $this->redirectToRoute(
+                'todo_show',
+                ['id' => $todoItem->getTodo()->getId()]
+            );
         }
 
         return $this->render(

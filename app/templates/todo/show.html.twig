@@ -18,6 +18,9 @@
                 {{ 'action.back_to_list'|trans }}
             </a>
         </p>
+        <a href="{{ url('todo_item_create', {id: todo.id}) }}" title="{{ 'action.create'|trans }}">
+            {{ 'action.create'|trans }}
+        </a>
 
         {% if pagination is defined and pagination.items|length %}
 

@@ -114,6 +114,27 @@ class TodoRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find todo by id.
+     *
+     * @param int $todoId Todo id
+     *
+     * @return QueryBuilder Query builder
+     */
+    public function findOneById(int $todoId): QueryBuilder
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder();
+
+        $queryBuilder
+            ->select(
+                'partial todo.{id, title, createdAt, updatedAt}',
+            )
+            ->where('todo.id = :id')
+            ->setParameter('id', $todoId);
+
+        return $queryBuilder;
+    }
+
+    /**
      * Get or create new query builder.
      *
      * @param QueryBuilder|null $queryBuilder Query builder

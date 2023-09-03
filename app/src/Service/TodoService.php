@@ -9,6 +9,7 @@ use App\Entity\Todo;
 use App\Entity\User;
 use App\Repository\TodoItemRepository;
 use App\Repository\TodoRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -102,11 +103,24 @@ class TodoService implements TodoServiceInterface
      * Can todo be deleted?
      *
      * @param Todo $todo Todo entity
+     *
+     * @throws
      */
     public function canBeDeleted(Todo $todo): bool
     {
         $result = $this->todoItemRepository->countByTodo($todo);
 
         return !($result > 0);
+    }
+
+    /**
+     * Find one by id.
+     *
+     * @param int $todoId Todo id
+     *
+     */
+    public function findOneById(int $todoId)
+    {
+        return $this->todoRepository->findOneBy(['id' => $todoId]);
     }
 }

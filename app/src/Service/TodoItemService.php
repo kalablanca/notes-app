@@ -8,6 +8,7 @@ namespace App\Service;
 use App\Entity\Todo;
 use App\Entity\TodoItem;
 use App\Repository\TodoItemRepository;
+use App\Repository\TodoRepository;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -23,6 +24,11 @@ class TodoItemService implements TodoItemServiceInterface
     private TodoItemRepository $todoItemRepository;
 
     /**
+     * Todo repository.
+     */
+    private TodoRepository $todoRepository;
+
+    /**
      * Paginator.
      */
     private PaginatorInterface $paginator;
@@ -30,12 +36,14 @@ class TodoItemService implements TodoItemServiceInterface
     /**
      * TodoItemService constructor.
      *
-     * @param TodoItemRepository     $todoItemRepository    TodoItem repository
-     * @param PaginatorInterface $paginator         Paginator
+     * @param TodoItemRepository $todoItemRepository TodoItem repository
+     * @param TodoRepository $todoRepository Todo repository
+     * @param PaginatorInterface $paginator Paginator
      */
-    public function __construct(TodoItemRepository $todoItemRepository, PaginatorInterface $paginator)
+    public function __construct(TodoItemRepository $todoItemRepository, TodoRepository $todoRepository, PaginatorInterface $paginator)
     {
         $this->todoItemRepository = $todoItemRepository;
+        $this->todoRepository = $todoRepository;
         $this->paginator = $paginator;
     }
 
@@ -73,5 +81,20 @@ class TodoItemService implements TodoItemServiceInterface
     public function delete(TodoItem $todoItem): void
     {
         $this->todoItemRepository->delete($todoItem);
+    }
+
+    /**
+     * Create entity.
+     *
+     * @param TodoItem $todoItem
+     * @param int $todoId
+     *
+     * @return void
+     */
+    public function create(TodoItem $todoItem, int $todoId): void
+    {
+        $todo = $this->todoRepository->findOneBy(['id' => $todoId]);
+        $todoItem->setTodo($todo);
+        $this->todoItemRepository->save($todoItem);
     }
 }

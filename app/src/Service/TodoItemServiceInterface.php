@@ -35,6 +35,18 @@ interface TodoItemServiceInterface
      * Delete entity.
      *
      * @param TodoItem $todoItem TodoItem entity
+     *
+     * @return void
      */
     public function delete(TodoItem $todoItem): void;
+
+    /**
+     * Create entity.
+     *
+     * @param TodoItem $todoItem
+     * @param int $todoId
+     *
+     * @return void
+     */
+    public function create(TodoItem $todoItem, int $todoId): void;
 }
