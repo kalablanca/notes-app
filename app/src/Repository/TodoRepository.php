@@ -7,6 +7,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use App\Entity\Todo;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -63,6 +64,28 @@ class TodoRepository extends ServiceEntityRepository
             ->select(
                 'partial todo.{id, title, createdAt, updatedAt}',
             )
+            ->orderBy('todo.updatedAt', 'DESC');
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Query by user.
+     *
+     * @param User $user User entity
+     *
+     * @return QueryBuilder Query builder
+     */
+    public function queryByUser(User $user): QueryBuilder
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder();
+
+        $queryBuilder
+            ->select(
+                'partial todo.{id, title, createdAt, updatedAt}',
+            )
+            ->where('todo.user = :user')
+            ->setParameter('user', $user)
             ->orderBy('todo.updatedAt', 'DESC');
 
         return $queryBuilder;

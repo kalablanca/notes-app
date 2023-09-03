@@ -8,6 +8,8 @@ namespace App\Repository;
 use App\Entity\Todo;
 use App\Entity\TodoItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -59,7 +61,7 @@ class TodoItemRepository extends ServiceEntityRepository
 
         $queryBuilder
             ->select(
-                'partial todoItem.{id, title, createdAt, updatedAt}',
+                'partial todoItem.{id, title, createdAt, updatedAt, isDone}',
             )
             ->orderBy('todoItem.updatedAt', 'DESC');
 
@@ -79,7 +81,7 @@ class TodoItemRepository extends ServiceEntityRepository
 
         $queryBuilder
             ->select(
-                'partial todoItem.{id, title, createdAt, updatedAt}',
+                'partial todoItem.{id, title, createdAt, updatedAt, isDone}',
             )
             ->where('todoItem.todo = :todo')
             ->setParameter('todo', $todo)
@@ -111,6 +113,27 @@ class TodoItemRepository extends ServiceEntityRepository
     }
 
     /**
+     * Count by todo.
+     *
+     * @param Todo $todo Todo entity
+     *
+     * @return int
+     * @throws NoResultException
+     *
+     * @throws NonUniqueResultException
+     */
+    public function countByTodo(Todo $todo): int
+    {
+        $queryBuilder = $this->createQueryBuilder('todoItem');
+
+        return $queryBuilder->select($queryBuilder->expr()->count('todoItem'))
+            ->where('todoItem.todo = :todo')
+            ->setParameter('todo', $todo)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
      * Get or create new query builder.
      *
      * @param QueryBuilder|null $queryBuilder Query builder
@@ -121,4 +144,6 @@ class TodoItemRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('todoItem');
     }
+
+
 }

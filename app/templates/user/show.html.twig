@@ -17,17 +17,19 @@
                     <dt class="list-group-item">{{ 'label.email'|trans }}</dt>
                     <dd class="list-group-item">{{ user.email }}</dd>
                 </dl>
-                <div class="btn-group" role="group" aria-label="actions">
-
-                    <a class="btn btn-outline-info" type="button" href="{{ url('user_edit', {id: user.id}) }}"
-                       title="{{ 'action.edit'|trans }}">
-                        {{ 'action.edit'|trans }}</a>
+                <div class="d-flex justify-content-center gap-2">
+                    <a class="btn btn-outline-info" type="button"
+                       href="{{ url('user_edit', {id: user.id}) }}"
+                       title="{{ 'action.edit'|trans }}"
+                    >
+                        {{ 'action.edit'|trans }}
+                    </a>
                     <a class="btn btn-outline-warning" type="button"
                        href="{{ url('user_edit_password', {id: user.id}) }}"
-                       title="{{ 'action.edit_password'|trans }}">
+                       title="{{ 'action.edit_password'|trans }}"
+                    >
                         {{ 'action.edit_password'|trans }}
                     </a>
-
                 </div>
             {% else %}
                 <p class="text-center display-2 mt-5">

@@ -75,6 +75,15 @@ class TodoItem
     private ?string $slug;
 
     /**
+     * Is item done.
+     *
+     * @ORM\Column(type="boolean")
+     */
+    #[ORM\Column(type: 'boolean')]
+    #[Assert\Type('bool')]
+    private bool $isDone = false;
+
+    /**
      * Todo.
      */
     #[ORM\ManyToOne(targetEntity: Todo::class)]
@@ -190,5 +199,25 @@ class TodoItem
     public function setTodo(?Todo $todo): void
     {
         $this->todo = $todo;
+    }
+
+    /**
+     * Getter for isDone.
+     *
+     * @return bool|null Is done
+     */
+    public function getIsDone(): ?bool
+    {
+        return $this->isDone;
+    }
+
+    /**
+     * Setter for isDone.
+     *
+     * @param bool|null $isDone Is done
+     */
+    public function setIsDone(?bool $isDone): void
+    {
+        $this->isDone = $isDone;
     }
 }

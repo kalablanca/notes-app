@@ -44,6 +44,7 @@ class TodoItemFixtures extends AbstractBaseFixtures implements DependentFixtureI
             $todoItem->setTodo(
                 $this->getRandomReference('todos')
             );
+            $todoItem->setIsDone($this->faker->boolean(20));
 
             return $todoItem;
         });

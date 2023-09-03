@@ -58,7 +58,8 @@ class NoteController extends AbstractController
     public function index(Request $request): Response
     {
         $pagination = $this->noteService->getPaginatedList(
-            $request->query->getInt('page', 1)
+            $request->query->getInt('page', 1),
+            $this->getUser()
         );
 
         return $this->render(
@@ -81,6 +82,10 @@ class NoteController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: ['GET'],
     )]
+    #[IsGranted(
+        'VIEW',
+        subject: 'note',
+    )]
     public function show(Note $note, Request $request): Response
     {
         return $this->render(
@@ -102,6 +107,9 @@ class NoteController extends AbstractController
         '/create',
         name: 'note_create',
         methods: 'GET|POST',
+    )]
+    #[IsGranted(
+        'ROLE_ADMIN',
     )]
     public function create(Request $request): Response
     {
@@ -147,6 +155,10 @@ class NoteController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: ['GET', 'POST'],
     )]
+    #[IsGranted(
+        'EDIT',
+        subject: 'note',
+    )]
     public function edit(Request $request, Note $note): Response
     {
         $form = $this->createForm(
@@ -188,6 +200,10 @@ class NoteController extends AbstractController
         name: 'note_delete',
         requirements: ['id' => '[1-9]\d*'],
         methods: ['GET', 'DELETE'],
+    )]
+    #[IsGranted(
+        'DELETE',
+        subject: 'note',
     )]
     public function delete(Request $request, Note $note): Response
     {

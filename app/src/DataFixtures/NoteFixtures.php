@@ -7,6 +7,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Note;
+use App\Entity\User;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
@@ -50,6 +51,11 @@ class NoteFixtures extends AbstractBaseFixtures implements DependentFixtureInter
             $category = $this->getRandomReference('categories');
             $note->setCategory($category);
 
+            /** @var User $user */
+            $user = $this->getRandomReference('admins');
+            $note->setUser($user);
+
+
             return $note;
         });
         $this->manager->flush();
@@ -65,6 +71,6 @@ class NoteFixtures extends AbstractBaseFixtures implements DependentFixtureInter
      */
     public function getDependencies(): array
     {
-        return [CategoryFixtures::class];
+        return [CategoryFixtures::class, UserFixtures::class];
     }
 }

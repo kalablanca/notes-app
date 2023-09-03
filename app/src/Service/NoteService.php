@@ -6,6 +6,7 @@
 namespace App\Service;
 
 use App\Entity\Note;
+use App\Entity\User;
 use App\Repository\NoteRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -44,10 +45,10 @@ class NoteService implements NoteServiceInterface
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page): PaginationInterface
+    public function getPaginatedList(int $page, User $user): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->noteRepository->queryAll(),
+            $this->noteRepository->queryByUser($user),
             $page,
             NoteRepository::PAGINATOR_ITEMS_PER_PAGE
         );

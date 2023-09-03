@@ -1,19 +1,21 @@
 <?php
 /**
- * Post voter.
+ * Note voter.
  */
 
 namespace App\Security\Voter;
 
+use App\Entity\Note;
+use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class PostVoter.
+ * Class NoteVoter.
  */
-class AppVoter extends Voter
+class NoteVoter extends Voter
 {
     /**
      * Edit permission.
@@ -37,14 +39,9 @@ class AppVoter extends Voter
     public const DELETE = 'DELETE';
 
     /**
-     * Create permission.
-     *
-     * @const string
-     */
-    public const CREATE = 'CREATE';
-
-    /**
      * Security helper.
+     *
+     * @var Security
      */
     private Security $security;
 
@@ -68,7 +65,8 @@ class AppVoter extends Voter
      */
     protected function supports(string $attribute, $subject): bool
     {
-        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE, self::CREATE]);
+        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE])
+            && $subject instanceof Note;
     }
 
     /**
@@ -81,64 +79,58 @@ class AppVoter extends Voter
      *
      * @return bool Vote result
      */
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
-        if (!$user instanceof UserInterface) {
+        if (!$user instanceof User) {
             return false;
         }
 
-        switch ($attribute) {
-            case self::EDIT:
-                return $this->canEdit();
-            case self::CREATE:
-                return $this->canCreate();
-            case self::VIEW:
-                return $this->canView();
-            case self::DELETE:
-                return $this->canDelete();
-        }
+        return match ($attribute) {
+            self::EDIT => $this->canEdit($subject, $user),
+            self::VIEW => $this->canView($subject, $user),
+            self::DELETE => $this->canDelete($subject, $user),
+            default => false,
+        };
 
-        return false;
     }
 
     /**
-     * Checks if user can edit.
+     * Checks if user can edit note.
+     *
+     * @param Note $note Note entity
+     * @param User $user User
      *
      * @return bool Result
      */
-    private function canEdit(): bool
+    private function canEdit(Note $note, User $user): bool
     {
-        return $this->security->isGranted('ROLE_ADMIN');
+        return $note->getUser() === $user;
     }
 
     /**
-     * Checks if user can view.
+     * Checks if user can view note.
+     *
+     * @param Note $note Note entity
+     * @param User $user User
      *
      * @return bool Result
      */
-    private function canView(): bool
+    private function canView(Note $note, User $user): bool
     {
-        return $this->security->isGranted('ROLE_ADMIN');
+        return $note->getUser() === $user;
     }
 
     /**
-     * Checks if user can delete.
+     * Checks if user can delete note.
+     *
+     * @param Note $note Note entity
+     * @param User $user User
      *
      * @return bool Result
      */
-    private function canDelete(): bool
+    private function canDelete(Note $note, User $user): bool
     {
-        return $this->security->isGranted('ROLE_ADMIN');
-    }
-
-    /**
-     * Checks if user can create.
-     *
-     * @return bool Result
-     */
-    private function canCreate(): bool
-    {
-        return $this->security->isGranted('ROLE_ADMIN');
+        return $note->getUser() === $user;
     }
 }

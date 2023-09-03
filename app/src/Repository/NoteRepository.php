@@ -7,6 +7,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use App\Entity\Note;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -71,6 +72,30 @@ class NoteRepository extends ServiceEntityRepository
     }
 
     /**
+     * Query all records by user.
+     *
+     * @param User $user User entity
+     *
+     * @return QueryBuilder Query builder
+     */
+    public function queryByUser(User $user): QueryBuilder
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder();
+
+        $queryBuilder
+            ->select(
+                'partial note.{id, title, createdAt, updatedAt}',
+                'partial category.{id, title}',
+            )
+            ->join('note.category', 'category')
+            ->where('note.user = :user')
+            ->setParameter(':user', $user)
+            ->orderBy('note.updatedAt', 'DESC');
+
+        return $queryBuilder;
+    }
+
+    /**
      * Query all records by category.
      *
      * @param Category $category Category entity
@@ -99,7 +124,7 @@ class NoteRepository extends ServiceEntityRepository
      *
      * @param Category $category Category
      *
-     * @return int Number of tasks in category
+     * @return int Number of notes in category
      *
      * @throws NoResultException
      * @throws NonUniqueResultException

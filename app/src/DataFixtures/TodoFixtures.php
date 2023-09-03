@@ -6,13 +6,14 @@
 namespace App\DataFixtures;
 
 use App\Entity\todo;
+use App\Entity\User;
 use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
  * Class TodoFixtures.
  */
-class TodoFixtures extends AbstractBaseFixtures
+class TodoFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * Load data.
@@ -42,10 +43,23 @@ class TodoFixtures extends AbstractBaseFixtures
                 )
             );
 
-
+            /** @var User $user */
+            $user = $this->getRandomReference('admins');
+            $todo->setUser($user);
 
             return $todo;
         });
         $this->manager->flush();
+    }
+
+    /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on.
+     *
+     * @return string[] of dependencies
+     */
+    public function getDependencies(): array
+    {
+        return [UserFixtures::class];
     }
 }

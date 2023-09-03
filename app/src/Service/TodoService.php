@@ -6,6 +6,7 @@
 namespace App\Service;
 
 use App\Entity\Todo;
+use App\Entity\User;
 use App\Repository\TodoItemRepository;
 use App\Repository\TodoRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -52,10 +53,10 @@ class TodoService implements TodoServiceInterface
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page): PaginationInterface
+    public function getPaginatedList(int $page, User $user): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->todoRepository->queryAll(),
+            $this->todoRepository->queryByUser($user),
             $page,
             TodoRepository::PAGINATOR_ITEMS_PER_PAGE
         );
@@ -95,5 +96,17 @@ class TodoService implements TodoServiceInterface
             $page,
             TodoRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+    }
+
+    /**
+     * Can todo be deleted?
+     *
+     * @param Todo $todo Todo entity
+     */
+    public function canBeDeleted(Todo $todo): bool
+    {
+        $result = $this->todoItemRepository->countByTodo($todo);
+
+        return !($result > 0);
     }
 }

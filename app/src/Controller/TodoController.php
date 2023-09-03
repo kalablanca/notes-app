@@ -65,7 +65,8 @@ class TodoController extends AbstractController
     public function index(Request $request): Response
     {
         $pagination = $this->todoService->getPaginatedList(
-            $request->query->getInt('page', 1)
+            $request->query->getInt('page', 1),
+            $this->getUser()
         );
 
         return $this->render(
@@ -203,6 +204,14 @@ class TodoController extends AbstractController
     )]
     public function delete(Request $request, Todo $todo): Response
     {
+        if (!$this->todoService->canBeDeleted($todo)) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('message.todo_contains_items')
+            );
+
+            return $this->redirectToRoute('category_index');
+        }
         $form = $this->createForm(
             FormType::class,
             $todo,

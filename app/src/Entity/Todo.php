@@ -74,6 +74,16 @@ class Todo
     private ?string $slug;
 
     /**
+     * User.
+     *
+     * @var User|null $user User
+     */
+    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Type(type: User::class)]
+    private ?User $user = null;
+
+    /**
      * Getter for id.
      *
      * @return int|null Id
@@ -162,5 +172,25 @@ class Todo
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * Getter for user.
+     *
+     * @return User|null User entity
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }// end getUser()
+
+    /**
+     * Setter for user.
+     *
+     * @param User|null $user User entity
+     */
+    public function setUser(?User $user): void
+    {
+        $this->user = $user;
     }
 }

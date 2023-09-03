@@ -7,6 +7,7 @@ namespace App\Form\Type;
 
 use App\Entity\TodoItem;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,18 +31,26 @@ class TodoItemType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add(
-            'title',
-            TextType::class,
-            [
-                'label' => 'label.title',
-                'required' => true,
-                'attr' => ['max_length' => 255],
-                'constraints' => [
-                    new NotBlank(),
-                ],
-            ]
-        );
+        $builder
+            ->add(
+                'title',
+                TextType::class,
+                [
+                    'label' => 'label.title',
+                    'required' => true,
+                    'attr' => ['max_length' => 255],
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
+                ])
+            ->add(
+                'isDone',
+                CheckboxType::class,
+                [
+                    'label' => 'label.is_done',
+                    'required' => true,
+                ]
+            );
     }
 
     /**

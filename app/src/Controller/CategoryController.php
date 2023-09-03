@@ -109,7 +109,6 @@ class CategoryController extends AbstractController
         name: 'category_create',
         methods: 'GET|POST',
     )]
-//    #[IsGranted('CREATE')]
     public function create(Request $request): Response
     {
         $category = new Category();
@@ -147,7 +146,6 @@ class CategoryController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|PUT'
     )]
-//    #[IsGranted('EDIT')]
     public function edit(Request $request, Category $category): Response
     {
         $form = $this->createForm(
@@ -194,7 +192,6 @@ class CategoryController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|DELETE'
     )]
-//    #[IsGranted('DELETE')]
     public function delete(Request $request, Category $category): Response
     {
         if (!$this->categoryService->canBeDeleted($category)) {

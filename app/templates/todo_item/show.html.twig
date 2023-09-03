@@ -12,6 +12,12 @@
             <dd>{{ todo_item.createdAt|format_date('short') }}</dd>
             <dt>{{ 'label.updated_at'|trans }}</dt>
             <dd>{{ todo_item.updatedAt|format_date('short') }}</dd>
+            <dt>{{ 'label.is_done'|trans }}</dt>
+            {% if todo_item.isDone %}
+                <dd>{{ 'label.yes'|trans }}</dd>
+            {% else %}
+                <dd>{{ 'label.no'|trans }}</dd>
+            {% endif %}
         </dl>
         <p>
             <a href="{{ url('todo_show', {id: todo_item.todo.id}) }}" title="{{ 'action.back_to_list'|trans }}">
