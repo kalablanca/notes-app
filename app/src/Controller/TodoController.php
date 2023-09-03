@@ -218,7 +218,7 @@ class TodoController extends AbstractController
                 $this->translator->trans('message.todo_contains_items')
             );
 
-            return $this->redirectToRoute('category_index');
+            return $this->redirectToRoute('todo_index');
         }
         $form = $this->createForm(
             FormType::class,
