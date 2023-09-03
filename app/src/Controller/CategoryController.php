@@ -36,7 +36,7 @@ class CategoryController extends AbstractController
      * CategoryController constructor.
      *
      * @param CategoryServiceInterface $categoryService Category service
-     * @param TranslatorInterface      $translator      Translator
+     * @param TranslatorInterface $translator Translator
      */
     public function __construct(CategoryServiceInterface $categoryService, TranslatorInterface $translator)
     {
@@ -55,6 +55,7 @@ class CategoryController extends AbstractController
         name: 'category_index',
         methods: ['GET']
     )]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(Request $request): Response
     {
         $pagination = $this->categoryService->getPaginatedList(
@@ -71,7 +72,7 @@ class CategoryController extends AbstractController
      * Show action.
      *
      * @param Category $category Category entity
-     * @param Request  $request  HTTP request
+     * @param Request $request HTTP request
      *
      * @return Response HTTP response
      */
@@ -81,6 +82,7 @@ class CategoryController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: ['GET'],
     )]
+    #[IsGranted('ROLE_ADMIN')]
     public function show(Category $category, Request $request): Response
     {
         $noteByCategoryPagedList = $this->categoryService->getNoteByCategoryPaginatedList(
@@ -109,6 +111,7 @@ class CategoryController extends AbstractController
         name: 'category_create',
         methods: 'GET|POST',
     )]
+    #[isGranted('ROLE_ADMIN')]
     public function create(Request $request): Response
     {
         $category = new Category();
@@ -135,7 +138,7 @@ class CategoryController extends AbstractController
     /**
      * Edit action.
      *
-     * @param Request  $request  HTTP request
+     * @param Request $request HTTP request
      * @param Category $category Category entity
      *
      * @return Response HTTP response
@@ -146,6 +149,7 @@ class CategoryController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|PUT'
     )]
+    #[isGranted('ROLE_ADMIN')]
     public function edit(Request $request, Category $category): Response
     {
         $form = $this->createForm(
@@ -181,7 +185,7 @@ class CategoryController extends AbstractController
     /**
      * Delete action.
      *
-     * @param Request  $request  HTTP request
+     * @param Request $request HTTP request
      * @param Category $category Category entity
      *
      * @return Response HTTP response
@@ -192,6 +196,7 @@ class CategoryController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|DELETE'
     )]
+    #[isGranted('ROLE_ADMIN')]
     public function delete(Request $request, Category $category): Response
     {
         if (!$this->categoryService->canBeDeleted($category)) {

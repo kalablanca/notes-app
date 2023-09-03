@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\TodoItem;
 use App\Form\Type\TodoItemType;
 use App\Service\TodoItemServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class TodoItemController extends AbstractController
     /**
      * TodoItem service.
      */
-    private TodoItemServiceInterface $TodoItemService;
+    private TodoItemServiceInterface $todoItemService;
 
     /**
      * Translator.
@@ -34,43 +35,19 @@ class TodoItemController extends AbstractController
     /**
      * TodoItemController constructor.
      *
-     * @param TodoItemServiceInterface $TodoItemService TodoItem service
+     * @param TodoItemServiceInterface $todoItemService TodoItem service
      * @param TranslatorInterface $translator Translator
      */
-    public function __construct(TodoItemServiceInterface $TodoItemService, TranslatorInterface $translator)
+    public function __construct(TodoItemServiceInterface $todoItemService, TranslatorInterface $translator)
     {
-        $this->TodoItemService = $TodoItemService;
+        $this->todoItemService = $todoItemService;
         $this->translator = $translator;
-    }
-
-    /**
-     * Index action.
-     *
-     * @param Request $request HTTP request
-     *
-     * @return Response HTTP response
-     */
-    #[Route(
-        name: 'todo_item_index',
-        methods: ['GET']
-    )]
-    public function index(Request $request): Response
-    {
-        $pagination = $this->TodoItemService->getPaginatedList(
-            $request->query->getInt('page', 1)
-        );
-
-        return $this->render(
-            'todo_item/index.html.twig',
-            ['pagination' => $pagination]
-        );
     }
 
     /**
      * Show action.
      *
-     * @param TodoItem $TodoItem TodoItem entity
-     * @param Request $request HTTP request
+     * @param TodoItem $todoItem TodoItem entity
      *
      * @return Response HTTP response
      */
@@ -80,12 +57,13 @@ class TodoItemController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: ['GET'],
     )]
-    public function show(TodoItem $TodoItem): Response
+    #[IsGranted('VIEW', subject: 'todoItem')]
+    public function show(TodoItem $todoItem): Response
     {
         return $this->render(
             'todo_item/show.html.twig',
             [
-                'todo_item' => $TodoItem,
+                'todo_item' => $todoItem,
             ]
         );
     }
@@ -102,28 +80,32 @@ class TodoItemController extends AbstractController
         name: 'todo_item_create',
         methods: 'GET|POST',
     )]
+    #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request): Response
     {
-        $TodoItem = new TodoItem();
+        $todoItem = new TodoItem();
         $form = $this->createForm(
             TodoItemType::class,
-            $TodoItem,
+            $todoItem,
             [
                 'method' => 'POST',
-                'action' => $this->generateUrl('TodoItem_create'),
+                'action' => $this->generateUrl('todo_item_create'),
             ]
         );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->TodoItemService->save($TodoItem);
+            $this->todoItemService->save($todoItem);
 
             $this->addFlash(
                 'success',
                 $this->translator->trans('message.created_successfully')
             );
 
-            return $this->redirectToRoute('TodoItem_index');
+            return $this->redirectToRoute(
+                'todo_show',
+                ['id' => $todoItem->getTodo()->getId()]
+            );
         }
 
         return $this->render(
@@ -136,7 +118,7 @@ class TodoItemController extends AbstractController
      * Edit action.
      *
      * @param Request $request HTTP request
-     * @param TodoItem $TodoItem TodoItem entity
+     * @param TodoItem $todoItem TodoItem entity
      *
      * @return Response HTTP response
      */
@@ -146,30 +128,34 @@ class TodoItemController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: ['GET', 'POST'],
     )]
-    public function edit(Request $request, TodoItem $TodoItem): Response
+    #[IsGranted('EDIT', subject: 'todoItem')]
+    public function edit(Request $request, TodoItem $todoItem): Response
     {
         $form = $this->createForm(
             TodoItemType::class,
-            $TodoItem,
+            $todoItem,
         );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->TodoItemService->save($TodoItem);
+            $this->todoItemService->save($todoItem);
 
             $this->addFlash(
                 'success',
                 $this->translator->trans('message.updated_successfully')
             );
 
-            return $this->redirectToRoute('TodoItem_index');
+            return $this->redirectToRoute(
+                'todo_show',
+                ['id' => $todoItem->getTodo()->getId()]
+            );
         }
 
         return $this->render(
             'todo_item/edit.html.twig',
             [
                 'form' => $form->createView(),
-                'todo_item' => $TodoItem,
+                'todo_item' => $todoItem,
             ]
         );
     }
@@ -178,7 +164,7 @@ class TodoItemController extends AbstractController
      * Delete action.
      *
      * @param Request $request HTTP request
-     * @param TodoItem $TodoItem TodoItem entity
+     * @param TodoItem $todoItem TodoItem entity
      *
      * @return Response HTTP response
      */
@@ -188,23 +174,23 @@ class TodoItemController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: ['GET', 'DELETE'],
     )]
-    public function delete(Request $request, TodoItem $TodoItem): Response
+    public function delete(Request $request, TodoItem $todoItem): Response
     {
         $form = $this->createForm(
             FormType::class,
-            $TodoItem,
+            $todoItem,
             [
                 'method' => 'DELETE',
                 'action' => $this->generateUrl(
                     'todo_item_delete',
-                    ['id' => $TodoItem->getId()]
+                    ['id' => $todoItem->getId()]
                 ),
             ]
         );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->TodoItemService->delete($TodoItem);
+            $this->todoItemService->delete($todoItem);
 
             $this->addFlash(
                 'success',
@@ -218,7 +204,7 @@ class TodoItemController extends AbstractController
             'todo_item/delete.html.twig',
             [
                 'form' => $form->createView(),
-                'todo_item' => $TodoItem,
+                'todo_item' => $todoItem,
             ]
         );
     }

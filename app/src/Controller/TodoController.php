@@ -9,6 +9,7 @@ use App\Entity\Todo;
 use App\Form\Type\TodoType;
 use App\Service\TodoItemServiceInterface;
 use App\Service\TodoServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,8 +42,8 @@ class TodoController extends AbstractController
      * TodoController constructor.
      *
      * @param TodoItemServiceInterface $todoItemService Todo Item service
-     * @param  TodoServiceInterface $todoService Todo service
-     * @param TranslatorInterface  $translator  Translator
+     * @param TodoServiceInterface $todoService Todo service
+     * @param TranslatorInterface $translator Translator
      */
     public function __construct(TodoItemServiceInterface $todoItemService, TranslatorInterface $translator, TodoServiceInterface $todoService)
     {
@@ -78,7 +79,7 @@ class TodoController extends AbstractController
     /**
      * Show action.
      *
-     * @param Todo    $todo    Todo entity
+     * @param Todo $todo Todo entity
      *
      * @return Response HTTP response
      */
@@ -88,6 +89,7 @@ class TodoController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: ['GET'],
     )]
+    #[isGranted('VIEW', subject: 'todo')]
     public function show(Todo $todo, Request $request): Response
     {
         $todoItemByTodoPagedList = $this->todoService->getTodoItemsByTodoPaginatedList(
@@ -116,9 +118,12 @@ class TodoController extends AbstractController
         name: 'todo_create',
         methods: 'GET|POST',
     )]
+    #[isGranted('ROLE_ADMIN')]
     public function create(Request $request): Response
     {
+        $user = $this->getUser();
         $todo = new Todo();
+        $todo->setUser($user);
         $form = $this->createForm(
             TodoType::class,
             $todo,
@@ -150,7 +155,7 @@ class TodoController extends AbstractController
      * Edit action.
      *
      * @param Request $request HTTP request
-     * @param Todo    $todo    Todo entity
+     * @param Todo $todo Todo entity
      *
      * @return Response HTTP response
      */
@@ -160,6 +165,7 @@ class TodoController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: ['GET', 'POST'],
     )]
+    #[isGranted('EDIT', subject: 'todo')]
     public function edit(Request $request, Todo $todo): Response
     {
         $form = $this->createForm(
@@ -192,7 +198,7 @@ class TodoController extends AbstractController
      * Delete action.
      *
      * @param Request $request HTTP request
-     * @param Todo    $todo    Todo entity
+     * @param Todo $todo Todo entity
      *
      * @return Response HTTP response
      */
@@ -202,6 +208,7 @@ class TodoController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: ['GET', 'DELETE'],
     )]
+    #[isGranted('DELETE', subject: 'todo')]
     public function delete(Request $request, Todo $todo): Response
     {
         if (!$this->todoService->canBeDeleted($todo)) {

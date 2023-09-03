@@ -48,7 +48,7 @@ class TodoItemType extends AbstractType
                 CheckboxType::class,
                 [
                     'label' => 'label.is_done',
-                    'required' => true,
+                    'required' => false,
                 ]
             );
     }

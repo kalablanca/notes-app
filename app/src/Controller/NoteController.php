@@ -113,7 +113,9 @@ class NoteController extends AbstractController
     )]
     public function create(Request $request): Response
     {
+        $user = $this->getUser();
         $note = new Note();
+        $note->setUser($user);
         $form = $this->createForm(
             NoteType::class,
             $note,

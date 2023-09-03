@@ -93,7 +93,6 @@ class Todo
         return $this->id;
     }
 
-
     /**
      * Getter for createdAt.
      *
