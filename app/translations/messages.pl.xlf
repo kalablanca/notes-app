@@ -282,7 +282,18 @@
                 <source>title.category_create</source>
                 <target>Utwórz kategorię</target>
             </trans-unit>
-
+            <trans-unit id="label.menu">
+                <source>label.menu</source>
+                <target>Menu</target>
+            </trans-unit>
+            <trans-unit id="label.password">
+                <source>label.password</source>
+                <target>Hasło</target>
+            </trans-unit>
+            <trans-unit id="label.repeat_password">
+                <source>label.repeat_password</source>
+                <target>Powtórz Hasło</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

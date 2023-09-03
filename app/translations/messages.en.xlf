@@ -282,6 +282,18 @@
                 <source>action.logout</source>
                 <target>Logout</target>
             </trans-unit>
+            <trans-unit id="label.menu">
+                <source>label.menu</source>
+                <target>Menu</target>
+            </trans-unit>
+            <trans-unit id="label.password">
+                <source>label.password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="label.repeat_password">
+                <source>label.repeat_password</source>
+                <target>Repeat Password</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
