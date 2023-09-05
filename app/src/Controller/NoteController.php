@@ -57,6 +57,10 @@ class NoteController extends AbstractController
     )]
     public function index(Request $request): Response
     {
+        if ($this->getUser() === null) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $pagination = $this->noteService->getPaginatedList(
             $request->query->getInt('page', 1),
             $this->getUser()

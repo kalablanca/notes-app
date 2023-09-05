@@ -3,3 +3,8 @@ var
 vendor
 .php_cs.cache
 .phpunit.result.cache
+build-env.ps1
+build-env.sh
+docker-compose.yml
+readme.md
+.docker
