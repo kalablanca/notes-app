@@ -84,6 +84,9 @@ class TodoItemService implements TodoItemServiceInterface
 
     /**
      * Create entity.
+     *
+     * @param TodoItem $todoItem TodoItem entity
+     * @param int      $todoId   TodoId
      */
     public function create(TodoItem $todoItem, int $todoId): void
     {

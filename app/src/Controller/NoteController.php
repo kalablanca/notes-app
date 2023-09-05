@@ -57,7 +57,7 @@ class NoteController extends AbstractController
     )]
     public function index(Request $request): Response
     {
-        if ($this->getUser() === null) {
+        if (null === $this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 

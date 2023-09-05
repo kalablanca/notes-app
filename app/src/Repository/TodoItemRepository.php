@@ -117,6 +117,8 @@ class TodoItemRepository extends ServiceEntityRepository
      *
      * @param Todo $todo Todo entity
      *
+     * @return int Result
+     *
      * @throws NoResultException
      * @throws NonUniqueResultException
      */

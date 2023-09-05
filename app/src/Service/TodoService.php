@@ -88,7 +88,10 @@ class TodoService implements TodoServiceInterface
     /**
      * Find todo items by todo.
      *
-     * @return mixed
+     * @param int  $page Page number
+     * @param Todo $todo Todo entity
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
      */
     public function getTodoItemsByTodoPaginatedList(int $page, Todo $todo): PaginationInterface
     {
@@ -103,6 +106,8 @@ class TodoService implements TodoServiceInterface
      * Can todo be deleted?
      *
      * @param Todo $todo Todo entity
+     *
+     * @return bool Result
      *
      * @throws NonUniqueResultException|NoResultException
      */
