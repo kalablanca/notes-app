@@ -232,7 +232,14 @@ class NoteControllerTest extends WebTestCase
         return $user;
     }
 
-    private function createCategory($name): Category
+    /**
+     * Create Category.
+     *
+     * @param string $name Category name
+     *
+     * @return Category Category entity
+     */
+    private function createCategory(string $name): Category
     {
         $category = new Category();
         $category->setTitle($name);

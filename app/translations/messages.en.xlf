@@ -298,6 +298,10 @@
                 <source>label.none</source>
                 <target>Choose</target>
             </trans-unit>
+            <trans-unit id="message.password_invalid">
+                <source>message.password_invalid</source>
+                <target>Invalid password</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

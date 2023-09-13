@@ -13,14 +13,31 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class RegistrationType.
  */
 class RegistrationType extends AbstractType
 {
+    /**
+     * Translator.
+     */
+    private TranslatorInterface $translator;
+
+    /**
+     * CommentController constructor.
+     *
+     * @param TranslatorInterface $translator Translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * Build form.
      *
@@ -38,7 +55,13 @@ class RegistrationType extends AbstractType
                 'attr' => ['max_length' => 64],
                 'constraints' => [
                     new NotBlank(),
-                    new Email(),
+                    new Length(['min' => 8]),
+                    new Regex(
+                        [
+                            'pattern' => '/^(?=.*[0-9])(?=.*[^a-zA-Z0-9])/',
+                            'message' => $this->translator->trans('message.password_invalid'),
+                        ]
+                    ),
                 ],
             ]
         );

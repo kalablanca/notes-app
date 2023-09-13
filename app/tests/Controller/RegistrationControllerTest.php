@@ -5,6 +5,7 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Psr\Container\ContainerExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -59,19 +60,19 @@ class RegistrationControllerTest extends WebTestCase
     public function testRegister(): void
     {
         // given
-        $expectedEmail = 'register_user@example.com';
+        $expectedEmail = 'register_user1@example.com';
 
         // when
         $this->httpClient->request('GET', self::TEST_ROUTE);
         $this->httpClient->submitForm(
             'Rejestruj',
             [
-               'registration' => [
-                   'email' => $expectedEmail,
-                   'password' => 'p@55w0rd',
-                   'firstName' => 'John',
-                   'lastName' => 'Doe',
-               ],
+                'registration' => [
+                    'email' => $expectedEmail,
+                    'password' => 'p@55w0rdAAA',
+                    'firstName' => 'John',
+                    'lastName' => 'Doer',
+                ],
             ]
         );
 

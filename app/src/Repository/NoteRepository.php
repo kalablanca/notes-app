@@ -109,7 +109,7 @@ class NoteRepository extends ServiceEntityRepository
         $queryBuilder
             ->select(
                 'partial note.{id, title, createdAt, updatedAt}',
-                'partial category.{id, title}',
+                'partial category.{id, title}'
             )
             ->join('note.category', 'category')
             ->where('note.category = :category')
