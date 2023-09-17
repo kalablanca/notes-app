@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
@@ -38,9 +39,14 @@ class NoteType extends AbstractType
             [
                 'label' => 'label.title',
                 'required' => true,
-                'attr' => ['max_length' => 64],
                 'constraints' => [
                     new NotBlank(),
+                    new Length(
+                        [
+                            'min' => 3,
+                            'max' => 255,
+                        ]
+                    ),
                 ],
             ]
         );
@@ -53,6 +59,11 @@ class NoteType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new NotBlank(),
+                    new Length(
+                        [
+                            'min' => 3,
+                        ]
+                    ),
                 ],
             ]
         );

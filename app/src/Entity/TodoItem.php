@@ -79,6 +79,7 @@ class TodoItem
      */
     #[ORM\ManyToOne(targetEntity: Todo::class)]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Type(type: Todo::class)]
     private ?Todo $todo = null;
 
     /**

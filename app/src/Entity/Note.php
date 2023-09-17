@@ -34,12 +34,18 @@ class Note
      * Title.
      */
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 255)]
     private ?string $title = null;
 
     /**
      * Content.
      */
     #[ORM\Column(type: 'text')]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3)]
     private ?string $content = null;
 
     /**
@@ -67,6 +73,7 @@ class Note
      */
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Type(type: Category::class)]
     private ?Category $category = null;
 
     /**
